@@ -2,14 +2,18 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 
+menu = ["О сайте", "Добавить статью", "Обратная связь", "Войти"]
 
 def index(request):
-    # t = render_to_string("women/index.html")
-    # return HttpResponse(t)
-    return render(request, "women/index.html")
+    data = {
+        'title': 'Главная страница',
+        'menu': menu,
+            }
+    return render(request, "women/index.html", context=data)
 
 def about(request):
-    return render(request, "women/about.html")
+    data = {'title': about.__name__}
+    return render(request, "women/about.html", data)
 
 def categories(request, cat_id):
     return HttpResponse(f"<h1>Статьи по категориям</h1><p>id: {cat_id}</p>")
