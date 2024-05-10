@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from sitewomen.women.views import page_not_found
+from women.views import page_not_found
 
 handler404 = page_not_found
 
