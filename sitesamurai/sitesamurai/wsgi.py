@@ -1,5 +1,5 @@
 """
-WSGI config for sitewomen project.
+WSGI config for sitesamurai project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sitewomen.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sitesamurai.settings')
 
 application = get_wsgi_application()

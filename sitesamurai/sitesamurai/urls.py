@@ -1,5 +1,5 @@
 """
-URL configuration for sitewomen project.
+URL configuration for sitesamurai project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -17,11 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from women.views import page_not_found
+from samurai.views import page_not_found
 
 handler404 = page_not_found
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('women/', include('women.urls')),
+    path('samurai/', include('samurai.urls')),
 ]
