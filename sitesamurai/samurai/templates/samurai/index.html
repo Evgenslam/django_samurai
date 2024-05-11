@@ -8,7 +8,9 @@
     <title>{{ title }}</title>
 </head>
 <body>
-<p>{{ menu|join:' | '|lower}}</p>
+{% for m in menu %}
+    <a href="{% url m.url_name %}">{{ m.title }}</a>{% if not forloop.last %} | {% endif %}
+{% endfor %}
 <h1>{{ title|capfirst }}</h1>
 <ul>
     {% for p in posts %}

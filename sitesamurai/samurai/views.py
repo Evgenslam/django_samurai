@@ -2,7 +2,12 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 
-menu = ["О сайте", "Добавить статью", "Обратная связь", "Войти"]
+menu = [
+    {"title": "О сайте", "url_name": "about"},
+    {"title": "Добавить статью", "url_name": "addpage"},
+    {"title": "Обратная связь", "url_name": "contact"},
+    {"title": "Войти", "url_name": "login"}
+]
 
 samurai_list = [
     {"id": 1, "name": "Миямото Мусаси 宮本 武蔵", "content": "Легендарный фехтовальщик, известный своим непобежденным рекордом в поединках.", "is_published": True},
@@ -25,6 +30,16 @@ def index(request):
 def about(request):
     data = {'title': about.__name__}
     return render(request, "samurai/about.html", data)
+
+def addpage(request):
+    return HttpResponse("Добавление статьи")
+
+def contact(request):
+    return HttpResponse("Здесь будет форма обратной связи")
+
+def login(request):
+    return HttpResponse("Здесь будет логин")
+
 
 def show_post(request, post_id):
     return HttpResponse(f"Подробная информация по id: {post_id}")
