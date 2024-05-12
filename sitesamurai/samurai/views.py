@@ -29,7 +29,7 @@ def index(request):
 
 def about(request):
     data = {'title': about.__name__}
-    return render(request, "samurai/about.html", data)
+    return render(request, "samurai/about.html", context={'title': 'О сайте', 'menu': menu})
 
 def addpage(request):
     return HttpResponse("Добавление статьи")
