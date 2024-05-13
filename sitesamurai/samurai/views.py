@@ -3,10 +3,17 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 
 menu = [
+    {"title": "Главная", "url_name": "home"},
     {"title": "О сайте", "url_name": "about"},
     {"title": "Добавить статью", "url_name": "addpage"},
     {"title": "Обратная связь", "url_name": "contact"},
     {"title": "Войти", "url_name": "login"}
+]
+
+cats_db = [
+    {"id": 1, "name": "теоретики"},
+    {"id": 1, "name": "сёгуны"},
+    {"id": 1, "name": "алкосамураи"},
 ]
 
 samurai_list = [
@@ -26,7 +33,7 @@ samurai_list = [
 
 def index(request):
     data = {
-        'title': 'лучшие самураи Татарстана',
+        'title': 'лучшие самураи по итогам 2023',
         'menu': menu,
         'posts': samurai_list,
             }
@@ -48,6 +55,10 @@ def login(request):
 
 def show_post(request, post_id):
     return HttpResponse(f"Подробная информация по id: {post_id}")
+
+def show_category(request, cat_id):
+    return index(request)
+
 
 def page_not_found(reuequest, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')

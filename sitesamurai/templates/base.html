@@ -1,4 +1,5 @@
 {% load static %}
+{% load samurai_tags %}
 
 <!doctype html>
 <html lang="en">
@@ -11,8 +12,14 @@
     <link type="text/css" href="{% static 'samurai/css/styles.css' %}" rel="stylesheet" />
 </head>
 <body>
+{% getcats as categories %}
 {% for m in menu %}
     <a href="{% url m.url_name %}">{{ m.title }}</a>{% if not forloop.last %} | {% endif %}
+{% endfor %}
+<br>
+<br>
+{% for c in categories %}
+    <a href="{% url 'category' c.id %}">{{ c.name|upper }}</a>{% if not forloop.last %} | {% endif %}
 {% endfor %}
 {% block content%} {% endblock %}
 </body>
