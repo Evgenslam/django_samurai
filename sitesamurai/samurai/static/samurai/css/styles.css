@@ -70,3 +70,7 @@ hr {
     border-top: 1px solid #ccc;
     margin: 20px 0;
 }
+
+.selected {
+    color: blue !important; /* Ensure sufficient specificity and override other styles */
+}

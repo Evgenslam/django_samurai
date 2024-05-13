@@ -12,8 +12,8 @@ menu = [
 
 cats_db = [
     {"id": 1, "name": "теоретики"},
-    {"id": 1, "name": "сёгуны"},
-    {"id": 1, "name": "алкосамураи"},
+    {"id": 2, "name": "сёгуны"},
+    {"id": 3, "name": "алкосамураи"},
 ]
 
 samurai_list = [
@@ -36,6 +36,7 @@ def index(request):
         'title': 'лучшие самураи по итогам 2023',
         'menu': menu,
         'posts': samurai_list,
+        'cat_selected': 0,
             }
     return render(request, "samurai/index.html", context=data)
 
@@ -57,7 +58,13 @@ def show_post(request, post_id):
     return HttpResponse(f"Подробная информация по id: {post_id}")
 
 def show_category(request, cat_id):
-    return index(request)
+    data = {
+        'title': 'Отображение по рубрикам',
+        'menu': menu,
+        'posts': samurai_list,
+        'cat_selected': cat_id,
+    }
+    return render(request, "samurai/index.html", context=data)
 
 
 def page_not_found(reuequest, exception):
