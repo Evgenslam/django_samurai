@@ -8,7 +8,7 @@
     <li>
         <h2>{{ p.name }}</h2>
         <p>{{ p.content|linebreaks|truncatewords:50 }}</p>
-        <p><a href="{% url 'post' p.id %}">Подробнее о {{ p.name }}</a></p>
+        <p><a href="{{ p.get_absolute_url }}">Подробнее о {{ p.name }}</a></p>
 
         {% if not forloop.last %}
         <hr>

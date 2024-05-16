@@ -1,6 +1,8 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
+
+from .models import Samurai
 
 menu = [
     {"title": "Главная", "url_name": "home"},
@@ -32,10 +34,11 @@ samurai_list = [
 ]
 
 def index(request):
+    samurai_info = Samurai.objects.all()
     data = {
         'title': 'лучшие самураи по итогам 2023',
         'menu': menu,
-        'posts': samurai_list,
+        'posts': samurai_info,
         'cat_selected': 0,
             }
     return render(request, "samurai/index.html", context=data)
@@ -54,8 +57,15 @@ def login(request):
     return HttpResponse("Здесь будет логин")
 
 
-def show_post(request, post_id):
-    return HttpResponse(f"Подробная информация по id: {post_id}")
+def show_post(request, post_slug):
+    post = get_object_or_404(Samurai, slug=post_slug)
+    data = {
+        'title': post.name,
+        'menu': menu,
+        'post': post,
+        'cat_selected': 1,
+    }
+    return render(request, 'samurai/post.html', context=data)
 
 def show_category(request, cat_id):
     data = {
