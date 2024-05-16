@@ -34,7 +34,7 @@ samurai_list = [
 ]
 
 def index(request):
-    samurai_info = Samurai.objects.all()
+    samurai_info = Samurai.published.all()
     data = {
         'title': 'лучшие самураи по итогам 2023',
         'menu': menu,

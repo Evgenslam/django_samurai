@@ -4,17 +4,14 @@
 <h1>{{ title|capfirst }}</h1>
 <ul>
     {% for p in posts %}
-    {% if p.is_published %}
     <li>
         <h2>{{ p.name }}</h2>
         <p>{{ p.content|linebreaks|truncatewords:50 }}</p>
         <p><a href="{{ p.get_absolute_url }}">Подробнее о {{ p.name }}</a></p>
-
         {% if not forloop.last %}
         <hr>
         {% endif %}
     </li>
-    {% endif %}
     {% endfor %}
 </ul>
 {% include 'samurai/includes/nav.html' %}
