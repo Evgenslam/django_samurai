@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 
-from .models import Samurai
+from .models import Category, Samurai
 
 menu = [
     {"title": "Главная", "url_name": "home"},
@@ -10,12 +10,6 @@ menu = [
     {"title": "Добавить статью", "url_name": "addpage"},
     {"title": "Обратная связь", "url_name": "contact"},
     {"title": "Войти", "url_name": "login"}
-]
-
-cats_db = [
-    {"id": 1, "name": "теоретики"},
-    {"id": 2, "name": "сёгуны"},
-    {"id": 3, "name": "алкосамураи"},
 ]
 
 samurai_list = [
@@ -64,15 +58,17 @@ def show_post(request, post_slug):
         'menu': menu,
         'post': post,
         'cat_selected': 1,
-    }
+    } 
     return render(request, 'samurai/post.html', context=data)
 
-def show_category(request, cat_id):
+def show_category(request, cat_slug):
+    category = get_object_or_404(Category, slug=cat_slug)
+    posts = Samurai.published.filter(category=category.pk)
     data = {
-        'title': 'Отображение по рубрикам',
+        'title': f'Рубрика: {category.name}',
         'menu': menu,
-        'posts': samurai_list,
-        'cat_selected': cat_id,
+        'posts': posts,
+        'cat_selected': category.pk,
     }
     return render(request, "samurai/index.html", context=data)
 
