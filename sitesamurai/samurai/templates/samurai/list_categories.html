@@ -1,7 +1,8 @@
+<a href="{% url 'home' %}">Все самураи | </a>
 {% for c in cats %}
 {% if c.id == cat_selected %}
     <a href="#" class="selected">{{ c.name|capfirst }}</a>{% if not forloop.last %} | {% endif %}
 {% else %}
-    <a href="{% url 'category' c.id %}">{{ c.name|capfirst }}</a>{% if not forloop.last %} | {% endif %}
+    <a href="{{ c.get_absolute_url }}">{{ c.name|capfirst }}</a>{% if not forloop.last %} | {% endif %}
 {% endif %}
 {% endfor %}

@@ -6,6 +6,7 @@
     {% for p in posts %}
     <li>
         <h2>{{ p.name }}</h2>
+        <h5>Дата: {{ p.time_update|date:"d-m-Y H:i:s" }}</h5>
         <p>{{ p.content|linebreaks|truncatewords:50 }}</p>
         <p><a href="{{ p.get_absolute_url }}">Подробнее о {{ p.name }}</a></p>
         {% if not forloop.last %}
@@ -14,5 +15,4 @@
     </li>
     {% endfor %}
 </ul>
-{% include 'samurai/includes/nav.html' %}
 {% endblock %}

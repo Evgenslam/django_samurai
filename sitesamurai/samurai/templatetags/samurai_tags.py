@@ -1,11 +1,6 @@
 from django import template
 import samurai.views as views
-from sitesamurai.samurai.models import Category
-
-register = template.Library()
-@register.simple_tag(name='getcats')
-def get_categories():
-    return views.cats_db
+from samurai.models import Category
 
 @register.inclusion_tag('samurai/list_categories.html')
 def show_categories(cat_selected=0):
