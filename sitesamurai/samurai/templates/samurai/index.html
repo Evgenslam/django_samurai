@@ -7,7 +7,17 @@
     <li>
         <h2>{{ p.name }}</h2>
         <h5>Дата: {{ p.time_update|date:"d-m-Y H:i:s" }}</h5>
-        <p>{{ p.content|linebreaks|truncatewords:50 }}</p>
+        {% with p.tags.all as tags%}
+        {% if tags %}
+        <h5>Теги: 
+            {% for t in tags%}
+            <a href="{{ t.get_absolute_url }}"> {{ t.tag }} |</a>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </h5>
+        <p>{{ p.content|linebreaks|truncatewords:50 }}...</p>
+        <br>
         <p><a href="{{ p.get_absolute_url }}">Подробнее о {{ p.name }}</a></p>
         {% if not forloop.last %}
         <hr>

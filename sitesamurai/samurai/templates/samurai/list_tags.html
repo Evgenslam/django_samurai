@@ -1,0 +1,9 @@
+{% if tags %}
+
+<h5>
+    Полный список тегов: 
+    {% for t in tags %}
+    <a href="{{ t.get_absolute_url}}">{{ t.tag }} || </a>
+    {% endfor %}
+</h5>
+{% endif %}

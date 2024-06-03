@@ -64,7 +64,7 @@ def page_not_found(reuequest, exception):
 
 def show_tag(request, tag_slug):
     tag = get_object_or_404(PostTag, slug=tag_slug)
-    posts = tag.samurais.all(is_published=Samurai.Status.PUBLISHED)
+    posts = tag.samurais.filter(is_published=Samurai.Status.PUBLISHED)
     data = {
         'title': f'Тег: {tag.tag}',
         'menu': menu,   

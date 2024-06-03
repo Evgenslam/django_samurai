@@ -23,7 +23,7 @@ class Samurai(models.Model):
 
     objects = models.Manager()
     published = PublishedManager()
-    tags = models.ManyToManyField('PostTag', blank=True, related_name='tags')
+    tags = models.ManyToManyField('PostTag', blank=True, related_name='samurais')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -59,3 +59,6 @@ class PostTag(models.Model):
 
     def __str__(self):
         return self.tag
+    
+    def get_absolute_url(self):
+        return reverse('tag', kwargs={'tag_slug': self.slug})
