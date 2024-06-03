@@ -6,6 +6,8 @@ from django.utils.text import slugify
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_published=Samurai.Status.PUBLISHED)
+    
+
 class Samurai(models.Model):
     class Status(models.IntegerChoices):
         DRAFT = 0, 'Черновик'
@@ -21,6 +23,7 @@ class Samurai(models.Model):
 
     objects = models.Manager()
     published = PublishedManager()
+    tags = models.ManyToManyField('PostTag', blank=True, related_name='tags')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -48,3 +51,11 @@ class Category(models.Model):
     
     def get_absolute_url(self):
         return reverse('category', kwargs={'cat_slug': self.slug})
+    
+
+class PostTag(models.Model):
+    tag = models.CharField(max_length=100, db_index=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
+
+    def __str__(self):
+        return self.tag
