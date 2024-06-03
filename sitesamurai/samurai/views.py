@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 
-from .models import Category, Samurai
+from .models import Category, PostTag, Samurai
 
 menu = [
     {"title": "Главная", "url_name": "home"},
@@ -61,5 +61,16 @@ def show_category(request, cat_slug):
 def page_not_found(reuequest, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
+
+def show_tag(request, tag_slug):
+    tag = get_object_or_404(PostTag, slug=tag_slug)
+    posts = tag.samurais.all(is_published=Samurai.Status.PUBLISHED)
+    data = {
+        'title': f'Тег: {tag.tag}',
+        'menu': menu,   
+        'posts': posts,
+        'cat_selected': None,
+    }
+    return render(request, "samurai/index.html", context=data)
 
 
