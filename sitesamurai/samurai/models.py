@@ -24,6 +24,7 @@ class Samurai(models.Model):
     objects = models.Manager()
     published = PublishedManager()
     tags = models.ManyToManyField('PostTag', blank=True, related_name='samurais')
+    lifework = models.OneToOneField('Lifework', on_delete=models.SET_NULL, null=True, blank=True, related_name='owner')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -41,6 +42,14 @@ class Samurai(models.Model):
         indexes = [
             models.Index(fields=["-time_create"])
         ]
+
+
+class Lifework(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+
+    def __str__(self) -> str:
+        return self.name
 
 class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True)
