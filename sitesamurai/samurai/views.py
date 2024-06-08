@@ -1,6 +1,5 @@
-from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import render, redirect, get_object_or_404
-from django.template.loader import render_to_string
+from django.http import HttpResponse, HttpResponseNotFound
+from django.shortcuts import render, get_object_or_404
 
 from .models import Category, PostTag, Samurai
 
@@ -12,6 +11,7 @@ menu = [
     {"title": "Войти", "url_name": "login"}
 ]
 
+
 def index(request):
     samurai_info = Samurai.published.all()
     data = {
@@ -22,15 +22,19 @@ def index(request):
             }
     return render(request, "samurai/index.html", context=data)
 
+
 def about(request):
     data = {'title': about.__name__}
     return render(request, "samurai/about.html", context={'title': 'О сайте', 'menu': menu})
 
+
 def addpage(request):
     return HttpResponse("Добавление статьи")
 
+
 def contact(request):
     return HttpResponse("Здесь будет форма обратной связи")
+
 
 def login(request):
     return HttpResponse("Здесь будет логин")
@@ -43,15 +47,16 @@ def show_post(request, post_slug):
         'menu': menu,
         'post': post,
         'cat_selected': 1,
-    } 
+    }
     return render(request, 'samurai/post.html', context=data)
+
 
 def show_category(request, cat_slug):
     category = get_object_or_404(Category, slug=cat_slug)
     posts = Samurai.published.filter(category=category.pk)
     data = {
         'title': f'Рубрика: {category.name}',
-        'menu': menu,   
+        'menu': menu,
         'posts': posts,
         'cat_selected': category.pk,
     }
@@ -67,10 +72,8 @@ def show_tag(request, tag_slug):
     posts = tag.samurais.filter(is_published=Samurai.Status.PUBLISHED)
     data = {
         'title': f'Тег: {tag.tag}',
-        'menu': menu,   
+        'menu': menu,
         'posts': posts,
         'cat_selected': None,
     }
     return render(request, "samurai/index.html", context=data)
-
-
