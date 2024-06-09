@@ -14,18 +14,18 @@ class Samurai(models.Model):
         DRAFT = 0, 'Черновик'
         PUBLISHED = 1, 'Опубликовано'
 
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True, db_index=True)
-    content = models.TextField(blank=True)
-    time_create = models.DateTimeField(auto_now_add=True)
-    time_update = models.DateTimeField(auto_now=True)
-    is_published = models.BooleanField(choices=Status.choices, default=Status.DRAFT)
-    category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='samurais')
+    name = models.CharField(max_length=255, verbose_name='имя')
+    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='слаг')
+    content = models.TextField(blank=True, verbose_name='описание')
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='создано')
+    time_update = models.DateTimeField(auto_now=True, verbose_name='обновлено')
+    is_published = models.BooleanField(choices=Status.choices, default=Status.DRAFT, verbose_name='опубликовано')
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='samurais', verbose_name='категория')
 
     objects = models.Manager()
     published = PublishedManager()
-    tags = models.ManyToManyField('PostTag', blank=True, related_name='samurais')
-    lifework = models.OneToOneField('Lifework', on_delete=models.SET_NULL, null=True, blank=True, related_name='owner')
+    tags = models.ManyToManyField('PostTag', blank=True, related_name='samurais', verbose_name='теги')
+    lifework = models.OneToOneField('Lifework', on_delete=models.SET_NULL, null=True, blank=True, related_name='owner', verbose_name='дело жизни')
 
     def save(self, *args, **kwargs):
         if not self.slug:
