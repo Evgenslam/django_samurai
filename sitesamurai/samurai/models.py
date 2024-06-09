@@ -39,6 +39,8 @@ class Samurai(models.Model):
         return self.name
 
     class Meta:
+        verbose_name = 'Самурай'
+        verbose_name_plural = 'Самураи'
         ordering = ["-time_create"]
         indexes = [
             models.Index(fields=["-time_create"])
@@ -51,6 +53,10 @@ class Lifework(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    class Meta:
+        verbose_name = 'Дело жизни'
+        verbose_name_plural = 'Дела'
 
 
 class Category(models.Model):
@@ -62,6 +68,10 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('category', kwargs={'cat_slug': self.slug})
+    
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
 
 class PostTag(models.Model):
@@ -73,3 +83,7 @@ class PostTag(models.Model):
 
     def get_absolute_url(self):
         return reverse('tag', kwargs={'tag_slug': self.slug})
+
+    class Meta:
+        verbose_name = 'Тег'
+        verbose_name_plural = 'Теги'
