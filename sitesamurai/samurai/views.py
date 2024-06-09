@@ -13,7 +13,7 @@ menu = [
 
 
 def index(request):
-    samurai_info = Samurai.published.all()
+    samurai_info = Samurai.published.all().prefetch_related('tags')
     data = {
         'title': 'лучшие самураи по итогам 2023',
         'menu': menu,

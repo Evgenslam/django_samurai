@@ -24,4 +24,5 @@ handler404 = page_not_found
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('samurai/', include('samurai.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
